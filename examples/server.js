@@ -2,7 +2,7 @@
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-02-03 22:14:53
  * @LastEditors  : yangjingpuyu@aliyun.com
- * @LastEditTime : 2020-02-03 23:49:01
+ * @LastEditTime : 2020-02-04 21:14:54
  * @FilePath: /ts-axios/examples/server.js
  * @Description: Do something ...
  */
@@ -46,6 +46,10 @@ router.get('/simple/get', function(req, res) {
   res.json({
     msg: `hello world`
   })
+})
+
+router.get('/base/get', function(req, res) {
+  res.json(req.query)
 })
 
 app.use(router)

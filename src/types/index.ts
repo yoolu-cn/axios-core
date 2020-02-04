@@ -2,7 +2,7 @@
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-02-03 22:25:41
  * @LastEditors  : yangjingpuyu@aliyun.com
- * @LastEditTime : 2020-02-03 22:46:31
+ * @LastEditTime : 2020-02-04 21:06:40
  * @FilePath: /ts-axios/src/types/index.ts
  * @Description: Do something ...
  */
@@ -22,6 +22,12 @@ export type Method =
   | 'post'
   | 'POST'
 
+/**
+ * axios config 参数接口
+ *
+ * @export
+ * @interface AxiosRequestConfig
+ */
 export interface AxiosRequestConfig {
   url: string
   method?: Method
