@@ -2,11 +2,11 @@
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-02-04 16:29:00
  * @LastEditors  : yangjingpuyu@aliyun.com
- * @LastEditTime : 2020-02-04 21:32:20
+ * @LastEditTime : 2020-02-04 21:49:31
  * @FilePath: /ts-axios/src/helpers/url.ts
  * @Description: Do something ...
  */
-import { isDate, isObject } from './utils'
+import { isDate, isPlainObject } from './utils'
 
 /**
  * 转义 url 中的特殊字符
@@ -55,7 +55,7 @@ export function buildURL(url: string, params?: any): string {
     values.forEach(val => {
       if (isDate(val)) {
         val = val.toISOString()
-      } else if (isObject(val)) {
+      } else if (isPlainObject(val)) {
         val = JSON.stringify(val)
       }
 

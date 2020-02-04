@@ -2,7 +2,7 @@
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-02-03 22:25:41
  * @LastEditors  : yangjingpuyu@aliyun.com
- * @LastEditTime : 2020-02-04 21:06:40
+ * @LastEditTime : 2020-02-04 22:51:31
  * @FilePath: /ts-axios/src/types/index.ts
  * @Description: Do something ...
  */
@@ -33,4 +33,30 @@ export interface AxiosRequestConfig {
   method?: Method
   data?: any
   params?: any
+  headers?: any
+  responseType?: XMLHttpRequestResponseType
 }
+
+/**
+ * axios 返回数据接口
+ *
+ * @export
+ * @interface AxiosResponse
+ */
+export interface AxiosResponse {
+  data: any
+  status: number
+  statusText: string
+  headers: any
+  config: AxiosRequestConfig
+  request: any
+}
+
+/**
+ * axios promise参数接口
+ *
+ * @export
+ * @interface AxiosPrimise
+ * @extends {Promise<AxiosResponse>}
+ */
+export interface AxiosPrimise extends Promise<AxiosResponse> {}

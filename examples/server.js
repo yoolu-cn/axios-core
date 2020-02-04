@@ -2,7 +2,7 @@
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-02-03 22:14:53
  * @LastEditors  : yangjingpuyu@aliyun.com
- * @LastEditTime : 2020-02-04 21:14:54
+ * @LastEditTime : 2020-02-04 21:54:12
  * @FilePath: /ts-axios/examples/server.js
  * @Description: Do something ...
  */
@@ -50,6 +50,23 @@ router.get('/simple/get', function(req, res) {
 
 router.get('/base/get', function(req, res) {
   res.json(req.query)
+})
+
+router.post('/base/post', function(req, res) {
+  res.json(req.body)
+})
+
+router.post('/base/buffer', function(req, res) {
+  let msg = []
+  req.on('data', (chunk) => {
+    if (chunk) {
+      msg.push(chunk)
+    }
+  })
+  req.on('end', () => {
+    let buf = Buffer.concat(msg)
+    res.json(buf.toJSON())
+  })
 })
 
 app.use(router)
