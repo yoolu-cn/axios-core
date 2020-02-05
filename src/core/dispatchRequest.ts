@@ -6,13 +6,13 @@
  * @FilePath: /ts-axios/src/core/dispatchRequest.ts
  * @Description: Do something ...
  */
-import { AxiosRequestConfig, AxiosPrimise, AxiosResponse } from '../types'
+import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types'
 import { buildURL } from '../helpers/url'
 import xhr from './xhr'
 import { transfromRequest, transfromResponse } from '../helpers/data'
 import { processHeaders } from '../helpers/headers'
 
-export default function dispatchRequest(config: AxiosRequestConfig): AxiosPrimise {
+export default function dispatchRequest(config: AxiosRequestConfig): AxiosPromise {
   processConfig(config)
   return xhr(config).then(res => {
     res.data = transformResponseData(res)

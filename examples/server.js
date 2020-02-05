@@ -2,7 +2,7 @@
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-02-03 22:14:53
  * @LastEditors  : yangjingpuyu@aliyun.com
- * @LastEditTime : 2020-02-05 17:32:59
+ * @LastEditTime : 2020-02-05 21:48:15
  * @FilePath: /ts-axios/examples/server.js
  * @Description: Do something ...
  */
@@ -164,6 +164,13 @@ function registerExtendRouter () {
 function registerInterceptorRouter () {
   router.get('/interceptor/get', function(req, res) {
     res.end('hello')
+  })
+  router.get('/interceptor/timeout', function(req, res) {
+    setTimeout(() => {
+      res.json({
+        msg: `hello world`
+      })
+    }, 10000)
   })
 }
 

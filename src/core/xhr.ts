@@ -6,11 +6,11 @@
  * @FilePath: /ts-axios/src/xhr.js
  * @Description: Do something ...
  */
-import { AxiosRequestConfig, AxiosPrimise, AxiosResponse } from '../types'
+import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types'
 import { parseHeaders } from '../helpers/headers'
 import { createError } from '../helpers/error'
 
-export default function xhr(config: AxiosRequestConfig): AxiosPrimise {
+export default function xhr(config: AxiosRequestConfig): AxiosPromise {
   return new Promise((resolve, reject) => {
     const { data, url, method = 'get', headers, responseType, timeout } = config
 
