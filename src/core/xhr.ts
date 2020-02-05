@@ -6,9 +6,9 @@
  * @FilePath: /ts-axios/src/xhr.js
  * @Description: Do something ...
  */
-import { AxiosRequestConfig, AxiosPrimise, AxiosResponse } from './types'
-import { parseHeaders } from './helpers/headers'
-import { createError } from './helpers/error'
+import { AxiosRequestConfig, AxiosPrimise, AxiosResponse } from '../types'
+import { parseHeaders } from '../helpers/headers'
+import { createError } from '../helpers/error'
 
 export default function xhr(config: AxiosRequestConfig): AxiosPrimise {
   return new Promise((resolve, reject) => {
@@ -23,7 +23,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPrimise {
       request.timeout = timeout
     }
 
-    request.open(method.toUpperCase(), url, true)
+    request.open(method.toUpperCase(), url!, true)
 
     request.onreadystatechange = function handleLoad() {
       if (request.readyState !== 4) {
