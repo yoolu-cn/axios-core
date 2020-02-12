@@ -2,7 +2,7 @@
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-02-03 21:23:20
  * @LastEditors  : yangjingpuyu@aliyun.com
- * @LastEditTime : 2020-02-12 21:48:57
+ * @LastEditTime : 2020-02-12 21:52:12
  * @FilePath: /ts-axios/README.md
  * @Description: Do something ...
  -->
@@ -17,8 +17,6 @@ Typescript training project to improve programming ability
 
 接口扩展 -> 扩展接口
 拦截器实现 -> 链式调用实现
-
-使用 TypeScript 从零实现一个 axios
 
 ## Features
 
