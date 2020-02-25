@@ -1,9 +1,9 @@
 /*
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-02-03 22:25:55
- * @LastEditors  : yangjingpuyu@aliyun.com
- * @LastEditTime : 2020-02-05 14:36:01
- * @FilePath: /ts-axios/src/xhr.js
+ * @LastEditors: yangjingpuyu@aliyun.com
+ * @LastEditTime: 2020-02-25 22:07:20
+ * @FilePath: /ts-axios/src/core/xhr.ts
  * @Description: Do something ...
  */
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types'
@@ -12,7 +12,7 @@ import { createError } from '../helpers/error'
 
 export default function xhr(config: AxiosRequestConfig): AxiosPromise {
   return new Promise((resolve, reject) => {
-    const { data, url, method = 'get', headers, responseType, timeout } = config
+    const { data, url, method = 'get', headers, responseType, timeout, cancelToken } = config
 
     const request = new XMLHttpRequest()
 
@@ -24,6 +24,13 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
     }
 
     request.open(method.toUpperCase(), url!, true)
+
+    if (cancelToken) {
+      cancelToken.promise.then(reason => {
+        request.abort()
+        reject(reason)
+      })
+    }
 
     request.onreadystatechange = function handleLoad() {
       if (request.readyState !== 4) {

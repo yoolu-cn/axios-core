@@ -1,8 +1,8 @@
 /*
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-02-03 22:25:41
- * @LastEditors  : yangjingpuyu@aliyun.com
- * @LastEditTime : 2020-02-12 00:56:41
+ * @LastEditors: yangjingpuyu@aliyun.com
+ * @LastEditTime: 2020-02-25 23:50:04
  * @FilePath: /ts-axios/src/types/index.ts
  * @Description: Do something ...
  */
@@ -38,6 +38,7 @@ export interface AxiosRequestConfig {
   timeout?: number
   transformRequest?: AxiosTransformer | AxiosTransformer[]
   transformResponse?: AxiosTransformer | AxiosTransformer[]
+  cancelToken?: CancelToken
 
   [propName: string]: any
 }
@@ -112,6 +113,10 @@ export interface AxiosInstance extends Axios {
 
 export interface AxiosStatic extends AxiosInstance {
   create(config?: AxiosRequestConfig): AxiosInstance
+
+  CancelToken: CancelTokenStatic
+  Cancel: CancelStatic
+  isCancel: (value: any) => boolean
 }
 
 export interface AxiosInterceptorManager<T> {
@@ -131,4 +136,37 @@ export interface RejectedFn {
 export interface Interceptor<T> {
   resolved: ResolvedFn<T>
   rejected?: RejectedFn
+}
+
+export interface CancelToken {
+  promise: Promise<Cancel>
+  reason?: Cancel
+
+  throwIfRequested(): void
+}
+
+export interface Canceler {
+  (message?: string): void
+}
+
+export interface CancelExecutor {
+  (cancel: Canceler): void
+}
+
+export interface CancelTokenSource {
+  token: CancelToken
+  cancel: Canceler
+}
+
+export interface CancelTokenStatic {
+  new (executor: CancelExecutor): CancelToken
+  source(): CancelTokenSource
+}
+
+export interface Cancel {
+  message?: string
+}
+
+export interface CancelStatic {
+  new (message?: string): Cancel
 }

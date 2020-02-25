@@ -1,8 +1,8 @@
 /*
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-02-05 16:57:43
- * @LastEditors  : yangjingpuyu@aliyun.com
- * @LastEditTime : 2020-02-12 00:50:08
+ * @LastEditors: yangjingpuyu@aliyun.com
+ * @LastEditTime: 2020-02-25 23:52:54
  * @FilePath: /ts-axios/src/core/dispatchRequest.ts
  * @Description: Do something ...
  */
@@ -14,6 +14,7 @@ import { processHeaders, flattenHeaders } from '../helpers/headers'
 import transform from './transform'
 
 export default function dispatchRequest(config: AxiosRequestConfig): AxiosPromise {
+  throwIfCancellationRequested(config)
   processConfig(config)
   return xhr(config).then(res => {
     return transformResponseData(res)
@@ -52,4 +53,10 @@ function transformURL(config: AxiosRequestConfig): string {
 function transformResponseData(res: AxiosResponse): AxiosResponse {
   res.data = transform(res.data, res.headers, res.config.transformResponse)
   return res
+}
+
+function throwIfCancellationRequested(config: AxiosRequestConfig): void {
+  if (config.cancelToken) {
+    config.cancelToken.throwIfRequested()
+  }
 }

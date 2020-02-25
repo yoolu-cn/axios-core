@@ -1,8 +1,8 @@
 /*
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-02-05 14:21:51
- * @LastEditors  : yangjingpuyu@aliyun.com
- * @LastEditTime : 2020-02-05 14:42:24
+ * @LastEditors: yangjingpuyu@aliyun.com
+ * @LastEditTime: 2020-02-25 23:44:56
  * @FilePath: /ts-axios/src/helpers/error.ts
  * @Description: Do something ...
  */
@@ -29,8 +29,6 @@ export class AxiosError extends Error {
     this.response = response
     this.request = request
     this.isAxiosError = true
-
-    Object.setPrototypeOf(this, AxiosError.prototype)
   }
 }
 
