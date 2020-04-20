@@ -2,7 +2,7 @@
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-02-03 22:25:41
  * @LastEditors: yangjingpuyu@aliyun.com
- * @LastEditTime: 2020-02-25 23:50:04
+ * @LastEditTime: 2020-04-20 23:30:25
  * @FilePath: /ts-axios/src/types/index.ts
  * @Description: Do something ...
  */
@@ -39,6 +39,9 @@ export interface AxiosRequestConfig {
   transformRequest?: AxiosTransformer | AxiosTransformer[]
   transformResponse?: AxiosTransformer | AxiosTransformer[]
   cancelToken?: CancelToken
+  withCredentials?: boolean
+  xsrfCookieName?: string
+  xsrfHeaderName?: string
 
   [propName: string]: any
 }

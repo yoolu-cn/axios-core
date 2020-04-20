@@ -1,8 +1,8 @@
 /*
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-02-03 22:14:53
- * @LastEditors  : yangjingpuyu@aliyun.com
- * @LastEditTime : 2020-02-05 21:48:15
+ * @LastEditors: yangjingpuyu@aliyun.com
+ * @LastEditTime: 2020-04-20 23:33:50
  * @FilePath: /ts-axios/examples/server.js
  * @Description: Do something ...
  */
@@ -34,8 +34,13 @@ app.use(webpackDevMiddleware(compiler, {
 }))
 
 app.use(webpackHotMiddleware(compiler))
-
-app.use(express.static(__dirname))
+app.use(express.static(__dirname, {
+  setHeaders(res) {
+    // res.cookie('XSRF-TOKEN-D', Math.random().toString(16).slice(2))
+    res.cookie('XSRF-TOKEN-D', 'ffffffffff======')
+  }
+}))
+// app.use(express.static(__dirname))
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))

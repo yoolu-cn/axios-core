@@ -1,12 +1,17 @@
 /*
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-02-04 16:29:00
- * @LastEditors  : yangjingpuyu@aliyun.com
- * @LastEditTime : 2020-02-04 21:49:31
+ * @LastEditors: yangjingpuyu@aliyun.com
+ * @LastEditTime: 2020-04-20 23:10:24
  * @FilePath: /ts-axios/src/helpers/url.ts
  * @Description: Do something ...
  */
 import { isDate, isPlainObject } from './utils'
+
+interface URLOrigin {
+  protocol: string
+  host: string
+}
 
 /**
  * 转义 url 中的特殊字符
@@ -73,4 +78,27 @@ export function buildURL(url: string, params?: any): string {
     url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams
   }
   return url
+}
+
+export function isUrlSameOrigin(requestUrl: string): boolean {
+  const parsedOrigin = resolveUrl(requestUrl)
+
+  return (
+    parsedOrigin.protocol === currentOrigin.protocol && parsedOrigin.host === currentOrigin.host
+  )
+}
+
+const urlParsingNode = document.createElement('a')
+
+const currentOrigin = resolveUrl(window.location.href)
+
+function resolveUrl(url: string): URLOrigin {
+  urlParsingNode.setAttribute('href', url)
+
+  const { protocol, host } = urlParsingNode
+
+  return {
+    protocol,
+    host
+  }
 }

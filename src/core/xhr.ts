@@ -2,18 +2,30 @@
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-02-03 22:25:55
  * @LastEditors: yangjingpuyu@aliyun.com
- * @LastEditTime: 2020-02-25 22:07:20
+ * @LastEditTime: 2020-04-20 23:39:03
  * @FilePath: /ts-axios/src/core/xhr.ts
  * @Description: Do something ...
  */
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types'
 import { parseHeaders } from '../helpers/headers'
 import { createError } from '../helpers/error'
+import { isUrlSameOrigin } from '../helpers/url'
+import cookie from '../helpers/cookie'
 
 export default function xhr(config: AxiosRequestConfig): AxiosPromise {
   return new Promise((resolve, reject) => {
-    const { data, url, method = 'get', headers, responseType, timeout, cancelToken } = config
-
+    const {
+      data,
+      url,
+      method = 'get',
+      headers,
+      responseType,
+      timeout,
+      cancelToken,
+      withCredentials,
+      xsrfHeaderName,
+      xsrfCookieName
+    } = config
     const request = new XMLHttpRequest()
 
     if (responseType) {
@@ -21,6 +33,17 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
     }
     if (timeout) {
       request.timeout = timeout
+    }
+
+    if (withCredentials) {
+      request.withCredentials = withCredentials
+    }
+
+    if ((withCredentials || isUrlSameOrigin(url!)) && xsrfCookieName) {
+      const xsrfValue = cookie.read(xsrfCookieName)
+      if (xsrfValue) {
+        headers[xsrfHeaderName!] = xsrfValue
+      }
     }
 
     request.open(method.toUpperCase(), url!, true)

@@ -1,9 +1,9 @@
 /*
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-02-11 22:24:52
- * @LastEditors  : yangjingpuyu@aliyun.com
- * @LastEditTime : 2020-02-12 00:14:07
- * @FilePath: /ts-axios/src/core/default.ts
+ * @LastEditors: yangjingpuyu@aliyun.com
+ * @LastEditTime: 2020-04-20 23:35:21
+ * @FilePath: /ts-axios/src/default.ts
  * @Description: Do something ...
  */
 import { AxiosRequestConfig } from './types'
@@ -13,11 +13,16 @@ import { transformRequest, transformResponse } from './helpers/data'
 const defaults: AxiosRequestConfig = {
   method: 'get',
   timeout: 0,
+
   headers: {
     common: {
       Accept: 'application/json, text/plain, */*'
     }
   },
+
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+
   transformRequest: [
     function(data: any, headers: any): any {
       processHeaders(headers, data)
