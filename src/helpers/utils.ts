@@ -2,7 +2,7 @@
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-02-04 16:28:52
  * @LastEditors: yangjingpuyu@aliyun.com
- * @LastEditTime: 2020-04-20 23:36:34
+ * @LastEditTime: 2020-04-21 22:56:13
  * @FilePath: /ts-axios/src/helpers/utils.ts
  * @Description: Do something ...
  */
@@ -18,6 +18,10 @@ export function isDate(val: any): val is Date {
 
 export function isPlainObject(val: any): val is Object {
   return toString.call(val) === '[object Object]'
+}
+
+export function isFormData(val: any): val is FormData {
+  return typeof val !== 'undefined' && val instanceof FormData
 }
 
 export function extend<T, U>(to: T, from: U): T & U {

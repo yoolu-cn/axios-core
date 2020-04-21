@@ -2,7 +2,7 @@
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-02-03 22:14:53
  * @LastEditors: yangjingpuyu@aliyun.com
- * @LastEditTime: 2020-04-20 23:33:50
+ * @LastEditTime: 2020-04-21 23:16:03
  * @FilePath: /ts-axios/examples/server.js
  * @Description: Do something ...
  */
@@ -204,7 +204,7 @@ function registerMoreRouter () {
     res.json(req.cookies)
   })
 
-  router.post('/more/upload', function(req, res) {
+  router.post('/upload-download/upload', function(req, res) {
     console.log(req.body, req.files)
     res.end('upload success!')
   })

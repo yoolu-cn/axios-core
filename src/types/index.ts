@@ -2,7 +2,7 @@
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-02-03 22:25:41
  * @LastEditors: yangjingpuyu@aliyun.com
- * @LastEditTime: 2020-04-20 23:30:25
+ * @LastEditTime: 2020-04-21 22:53:14
  * @FilePath: /ts-axios/src/types/index.ts
  * @Description: Do something ...
  */
@@ -42,6 +42,8 @@ export interface AxiosRequestConfig {
   withCredentials?: boolean
   xsrfCookieName?: string
   xsrfHeaderName?: string
+  onDownloadProgress?: (e: ProgressEvent) => void
+  onUploadProgress?: (e: ProgressEvent) => void
 
   [propName: string]: any
 }
