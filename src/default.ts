@@ -2,7 +2,7 @@
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-02-11 22:24:52
  * @LastEditors: yangjingpuyu@aliyun.com
- * @LastEditTime: 2020-04-20 23:35:21
+ * @LastEditTime: 2020-04-21 23:37:59
  * @FilePath: /ts-axios/src/default.ts
  * @Description: Do something ...
  */
@@ -33,7 +33,11 @@ const defaults: AxiosRequestConfig = {
     function(data: any): any {
       return transformResponse(data)
     }
-  ]
+  ],
+
+  validateStatus(status: number): boolean {
+    return status >= 200 && status < 300
+  }
 }
 
 const methodsNoData = ['delete', 'get', 'head', 'options']

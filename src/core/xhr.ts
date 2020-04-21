@@ -2,7 +2,7 @@
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-02-03 22:25:55
  * @LastEditors: yangjingpuyu@aliyun.com
- * @LastEditTime: 2020-04-21 23:07:39
+ * @LastEditTime: 2020-04-21 23:38:58
  * @FilePath: /ts-axios/src/core/xhr.ts
  * @Description: Do something ...
  */
@@ -20,6 +20,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       url,
       method = 'get',
       headers,
+      auth,
       responseType,
       timeout,
       cancelToken,
@@ -27,7 +28,8 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       xsrfHeaderName,
       xsrfCookieName,
       onDownloadProgress,
-      onUploadProgress
+      onUploadProgress,
+      validateStatus
     } = config
     const request = new XMLHttpRequest()
 
@@ -100,6 +102,10 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
         delete headers['Content-Type']
       }
 
+      if (auth) {
+        headers['Authorization'] = `Basic ` + btoa(`${auth.username}:${auth.password}`)
+      }
+
       if ((withCredentials || isUrlSameOrigin(url!)) && xsrfCookieName) {
         const xsrfValue = cookie.read(xsrfCookieName)
         if (xsrfValue) {
@@ -126,7 +132,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
     }
 
     function hanldeResponse(response: AxiosResponse): void {
-      if (response.status >= 200 && response.status < 300) {
+      if (!validateStatus || validateStatus(response.status)) {
         resolve(response)
       } else {
         reject(

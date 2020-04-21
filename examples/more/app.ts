@@ -2,11 +2,11 @@
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-03-30 21:37:34
  * @LastEditors: yangjingpuyu@aliyun.com
- * @LastEditTime: 2020-04-21 23:12:09
+ * @LastEditTime: 2020-04-21 23:41:53
  * @FilePath: /ts-axios/examples/more/app.ts
  * @Description: Do something ...
  */
-import axios from '../../src/index'
+import axios, { AxiosError } from '../../src/index'
 
 // ------------- withCredentials ------------
 
@@ -24,11 +24,44 @@ import axios from '../../src/index'
 
 // ---------------- xsrf ----------------
 
-const instance = axios.create({
-  xsrfCookieName: 'XSRF-TOKEN-D',
-  xsrfHeaderName: 'X-XSRF-TOKEN-D'
+// const instance = axios.create({
+//   xsrfCookieName: 'XSRF-TOKEN-D',
+//   xsrfHeaderName: 'X-XSRF-TOKEN-D'
+// })
+
+// instance.get('/more/get').then(res => {
+//   console.log(res)
+// })
+
+// ------------------ auth -----------------
+
+// axios.post('/more/post', {
+//   a: 1
+// }, {
+//   auth: {
+//     username: 'Yee',
+//     password: '123456'
+//   }
+// }).then(res => {
+//   console.log(res)
+// })
+
+// ------------------ custom status error -----------------
+
+axios.get('/more/304').then(res => {
+  console.log(res)
+}).catch((e: AxiosError) => {
+  console.log('no custom')
+  console.log(e.message)
 })
 
-instance.get('/more/get').then(res => {
+axios.get('/more/304', {
+  validateStatus(status) {
+    return status >= 200 && status < 400
+  }
+}).then(res => {
   console.log(res)
+}).catch((e: AxiosError) => {
+  console.log('custom')
+  console.log(e.message)
 })
