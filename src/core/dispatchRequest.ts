@@ -2,15 +2,14 @@
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-02-05 16:57:43
  * @LastEditors: yangjingpuyu@aliyun.com
- * @LastEditTime: 2020-02-25 23:52:54
+ * @LastEditTime: 2020-05-02 00:11:30
  * @FilePath: /ts-axios/src/core/dispatchRequest.ts
  * @Description: Do something ...
  */
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types'
-import { buildURL } from '../helpers/url'
+import { buildURL, isAbsoluteURL, combineURL } from '../helpers/url'
 import xhr from './xhr'
-import { transformRequest, transformResponse } from '../helpers/data'
-import { processHeaders, flattenHeaders } from '../helpers/headers'
+import { flattenHeaders } from '../helpers/headers'
 import transform from './transform'
 
 export default function dispatchRequest(config: AxiosRequestConfig): AxiosPromise {
@@ -39,9 +38,12 @@ function processConfig(config: AxiosRequestConfig): void {
  * @param {AxiosRequestConfig} config
  * @returns {string}
  */
-function transformURL(config: AxiosRequestConfig): string {
-  let { url, params } = config
-  return buildURL(url!, params)
+export function transformURL(config: AxiosRequestConfig): string {
+  let { url, params, paramsSerializer, baseURL } = config
+  if (baseURL && !isAbsoluteURL(url!)) {
+    url = combineURL(baseURL, url)
+  }
+  return buildURL(url!, params, paramsSerializer)
 }
 
 /**

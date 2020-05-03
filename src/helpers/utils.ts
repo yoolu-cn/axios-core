@@ -1,8 +1,8 @@
 /*
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-02-04 16:28:52
- * @LastEditors  : yangjingpuyu@aliyun.com
- * @LastEditTime : 2020-02-11 23:57:28
+ * @LastEditors: yangjingpuyu@aliyun.com
+ * @LastEditTime: 2020-05-03 09:45:36
  * @FilePath: /ts-axios/src/helpers/utils.ts
  * @Description: Do something ...
  */
@@ -48,4 +48,8 @@ export function deepMerge(...objs: any[]): any {
     }
   })
   return result
+}
+
+export function isURLSearchParams(val: any): val is URLSearchParams {
+  return typeof val !== 'undefined' && val instanceof URLSearchParams
 }

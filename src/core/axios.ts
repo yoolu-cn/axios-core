@@ -1,8 +1,8 @@
 /*
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-02-05 16:55:50
- * @LastEditors  : yangjingpuyu@aliyun.com
- * @LastEditTime : 2020-02-12 00:03:39
+ * @LastEditors: yangjingpuyu@aliyun.com
+ * @LastEditTime: 2020-05-02 00:11:47
  * @FilePath: /ts-axios/src/core/axios.ts
  * @Description: Do something ...
  */
@@ -14,7 +14,7 @@ import {
   ResolvedFn,
   RejectedFn
 } from '../types'
-import dispatchRequest from './dispatchRequest'
+import dispatchRequest, { transformURL } from './dispatchRequest'
 import InterceptorManager from './interceptorManager'
 import mergeConfig from './mergeConfig'
 
@@ -104,6 +104,11 @@ export default class Axios {
 
   patch(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise {
     return this._requestMethodWithData('patch', url, data, config)
+  }
+
+  getUri(config?: AxiosRequestConfig): string {
+    config = mergeConfig(this.defaults, config)
+    return transformURL(config)
   }
 
   _requestMethodWithoutData(
