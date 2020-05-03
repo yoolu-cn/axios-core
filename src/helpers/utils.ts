@@ -2,7 +2,7 @@
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-02-04 16:28:52
  * @LastEditors: yangjingpuyu@aliyun.com
- * @LastEditTime: 2020-05-03 09:45:36
+ * @LastEditTime: 2020-05-03 21:05:25
  * @FilePath: /ts-axios/src/helpers/utils.ts
  * @Description: Do something ...
  */
@@ -20,11 +20,14 @@ export function isPlainObject(val: any): val is Object {
   return toString.call(val) === '[object Object]'
 }
 
+export function isFormData(val: any): val is FormData {
+  return typeof val !== 'undefined' && val instanceof FormData
+}
+
 export function extend<T, U>(to: T, from: U): T & U {
   for (const key in from) {
     ;(to as T & U)[key] = from[key] as any
   }
-  console.log(to)
   return to as T & U
 }
 

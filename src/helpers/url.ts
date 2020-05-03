@@ -13,6 +13,11 @@ interface URLOrigin {
   host: string
 }
 
+interface URLOrigin {
+  protocol: string
+  host: string
+}
+
 /**
  * 转义 url 中的特殊字符
  *
@@ -90,11 +95,6 @@ export function buildURL(
   return url
 }
 
-/**
- * @description: 判断当前页面url 和 requestURL 是不是同源
- * @param {type}
- * @return:
- */
 export function isUrlSameOrigin(requestUrl: string): boolean {
   const parsedOrigin = resolveUrl(requestUrl)
 
@@ -103,16 +103,11 @@ export function isUrlSameOrigin(requestUrl: string): boolean {
   )
 }
 
+const urlParsingNode = document.createElement('a')
+
 const currentOrigin = resolveUrl(window.location.href)
 
-/**
- * @description: 获取当前页面url地址
- * @param {type}
- * @return:
- */
 function resolveUrl(url: string): URLOrigin {
-  const urlParsingNode = document.createElement('a')
-
   urlParsingNode.setAttribute('href', url)
 
   const { protocol, host } = urlParsingNode
@@ -121,22 +116,4 @@ function resolveUrl(url: string): URLOrigin {
     protocol,
     host
   }
-}
-
-/**
- * @description: 判断 url 是不是 绝对的 URL
- * @param
- * @return: boolean
- */
-export function isAbsoluteURL(url: string): boolean {
-  return /(^[a-z][a-z\d\+\-\.]*:)?\/\//i.test(url)
-}
-
-/**
- * @description: 拼接 baseURL 和 relativeURL
- * @param {type}
- * @return:
- */
-export function combineURL(baseURL: string, relativeURL?: string): string {
-  return relativeURL ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '') : baseURL
 }

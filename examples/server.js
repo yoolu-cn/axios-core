@@ -1,8 +1,8 @@
 /*
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-02-03 22:14:53
- * @LastEditors  : yangjingpuyu@aliyun.com
- * @LastEditTime : 2020-02-05 21:48:15
+ * @LastEditors: yangjingpuyu@aliyun.com
+ * @LastEditTime: 2020-04-21 23:32:24
  * @FilePath: /ts-axios/examples/server.js
  * @Description: Do something ...
  */
@@ -20,6 +20,7 @@ const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const WebpackConfig = require('./webpack.config')
+const atob = require('atob')
 
 const app = express()
 
@@ -34,8 +35,13 @@ app.use(webpackDevMiddleware(compiler, {
 }))
 
 app.use(webpackHotMiddleware(compiler))
-
-app.use(express.static(__dirname))
+app.use(express.static(__dirname, {
+  setHeaders(res) {
+    // res.cookie('XSRF-TOKEN-D', Math.random().toString(16).slice(2))
+    res.cookie('XSRF-TOKEN-D', 'ffffffffff======')
+  }
+}))
+// app.use(express.static(__dirname))
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -199,7 +205,7 @@ function registerMoreRouter () {
     res.json(req.cookies)
   })
 
-  router.post('/more/upload', function(req, res) {
+  router.post('/upload-download/upload', function(req, res) {
     console.log(req.body, req.files)
     res.end('upload success!')
   })

@@ -2,7 +2,7 @@
  * @Author: yangjingpuyu@aliyun.com
  * @Date: 2020-02-03 22:25:41
  * @LastEditors: yangjingpuyu@aliyun.com
- * @LastEditTime: 2020-05-03 09:42:25
+ * @LastEditTime: 2020-05-03 21:05:18
  * @FilePath: /ts-axios/src/types/index.ts
  * @Description: Do something ...
  */
